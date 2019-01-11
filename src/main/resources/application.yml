@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysoul?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数(使用负值表示没有限制)
+        max-wait: -1ms # 连接池最大阻塞等待时间(使用负值表示没有限制)
+        max-idle: 8 # 连接池中最大空闲连接
+        min-idle: 0 # 连接池中最小空闲连接
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/soul
+mongodb:
+  primary:
+    uri: mongodb://localhost:27017
+    database: primary
+  secondary:
+    uri: mongodb://localhost:27017
+    database: secondary
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名规则适配
+  mapper-locations: classpath:mapper/**/*.xml # mapper.xml 文件的路径
+
+demo:
+  jwt:
+    # 加密秘钥
+    secret: 5fe04e9fde17428ebf67053fc10ff9a6
+    # token有效时长，7天，单位秒
+    expire: 2592000
+    # header中的keyName
+    header: token
+
+server:
+  port: 8081

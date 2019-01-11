@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    
+    <!--查询用户角色-->
+    <select id="getRoles" resultType="java.util.Set">
+        select
+          tr.rolename
+        from t_role tr
+        left join t_user tu on tr.id = tu.role_id
+        where tu.username = #{username}
+    </select>
+    
+    <!--查询用户权限-->
+    <select id="getPermissions" resultType="java.util.Set">
+        select
+          tp.permissionname
+        from t_permission tp
+        left join t_user tu on tu.role_id = tp.role_id
+        where tu.username = #{username}
+    </select>
+
+    <select id="getByUsername" resultType="com.example.demo.entity.User">
+        select id, username, password from t_user where username = #{username}
+    </select>
+</mapper>
