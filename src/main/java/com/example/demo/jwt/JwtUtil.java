@@ -3,8 +3,8 @@ package com.example.demo.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +19,9 @@ import java.util.Date;
 
 @ConfigurationProperties(prefix = "demo.jwt")
 @Component
+@Slf4j
+@Data
 public class JwtUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtUtil.class);
 
     private long expire;
     private String secret;
@@ -54,7 +55,7 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
         }catch (Exception e){
-            LOGGER.debug("validate is token error ", e);
+            log.debug("validate is token error ", e);
             return null;
         }
     }
@@ -65,29 +66,5 @@ public class JwtUtil {
      */
     public boolean isTokenExpired(Date expiration) {
         return expiration.before(new Date());
-    }
-
-    public long getExpire() {
-        return expire;
-    }
-
-    public void setExpire(long expire) {
-        this.expire = expire;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
     }
 }
